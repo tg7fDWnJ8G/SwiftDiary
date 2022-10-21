@@ -5,7 +5,7 @@
 Appギャラリーの「予定表」を色々眺めて見ることにした。@Published、ObservableObjectなど、更新時のレンダリングを自動でやってくれそうな仕組みの片鱗が見えて、よく出来ている感じ。ただ、文法がよくわからない。これでは、せっかくのPlaygroundsのサンプルを活かせない。どうしたものか。
 
 ClassとStructの使い分けもよくわからない。機能の違いを一生懸命説明しているサイトはあるが、根源的にSwiftの設計者がどのように意図して2つを用意したのか。意図に沿うとどういう使い分けになるのか。とりあえず、以前から開いていたSwift.orgの言語ガイドに目を通すことにした。  
-https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html
+[https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
 
 基本(Basics)の1/3がオプショナルに割かれている。型推論とかに絡んでいるのか、大ごとになっている感じ。要するに定義した変数に値が入っていない場合があるなら、折り込もうってことね。オプショナルでwrapするってのがあるか無いか不明な状態で、値が入っているならunwrapして使いなさい、ってのはその通りだけど、なかなかにやってみないと使いこなせるかわからない。
 
