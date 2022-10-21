@@ -39,3 +39,6 @@ Javaのコンカレントフレームワークは知らないけど、古い実�
 Publish & Sbscribeのデザインパターンを知っていると、そうだよね、という感じではあるけど。非同期処理のフレームワークとしては、jQueryのDeferredが鮮烈だった。あまり使いこなせななったけど。
 
 しかし、onReceiveやTimerのドキュメントがAppleの開発者サイトでなかなか行き着けない。Googleで検索すれば出てくるので、結果からはどのフレームワークのどのAPIコレクションにあるかはわかる。なかなかしんどい。onReceiveはViewで宣言されているようだが、TextはViewを継承しているのか、実装しているのか、Java Docのように追えないのでわからない。
+
+---
+Copyright 2022   Takashi KOBAYASHI   All Rights Reserved.
