@@ -15,22 +15,24 @@ ClassとStructの使い分けもよくわからない。機能の違いを一生
 Swift言語ガイドの続き。
 
 オペレータはそんな新しいものないか、と思っていたら、意外に面白かった。オプショナル関連のnilチェックとか、範囲のオペレータとかは興味深い。  
-https://docs.swift.org/swift-book/LanguageGuide/BasicOperators.html
+[https://docs.swift.org/swift-book/LanguageGuide/BasicOperators.html](https://docs.swift.org/swift-book/LanguageGuide/BasicOperators.html)
 
 コレクションは、サッと見る感じにしたけど、Javaでコレクションフレームワークが一般的になって、基本的なところは言語仕様に近いところに取り込まれるようになってきたか。 Dictionaryのリテラルは面白い。  
-https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html
+[https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html](https://docs.swift.org/swift-book/LanguageGuide/CollectionTypes.html)
 
 コントロールフローは制御文。コレクションの存在が前提になっってきて、foreach的な処理が前面。switch文が、オプショナルと範囲のオペレータを組み合わさって、色々できる。まぁ、自分の好みの書き方に落ち着くんだろうけど。  
-https://docs.swift.org/swift-book/LanguageGuide/ControlFlow.html
+[https://docs.swift.org/swift-book/LanguageGuide/ControlFlow.html](https://docs.swift.org/swift-book/LanguageGuide/ControlFlow.html)
 
 関数。returnの省略とか、引数のラベルはよくわからないし、さらに省略もあるともう。タプルを使った複数値のリターンはいいとして、タプルにオプショナルが組み合わさると訳がわからない。可変長もあるし。インアウト引数とかタプルも、微妙にオブジェクトの参照渡しを隠蔽している感じ。関数タイプが登場して、クロージャも出てくるよね、と。  
-https://docs.swift.org/swift-book/LanguageGuide/Functions.html
+[https://docs.swift.org/swift-book/LanguageGuide/Functions.html](https://docs.swift.org/swift-book/LanguageGuide/Functions.html)
 
 クロージャは、使いこなせばすごく便利なんだろうけど、そのために、型推論できるところは省略しまくれるようになっている。あとで読んでわかるんだろうか。  
-https://docs.swift.org/swift-book/LanguageGuide/Closures.html
+[https://docs.swift.org/swift-book/LanguageGuide/Closures.html](https://docs.swift.org/swift-book/LanguageGuide/Closures.html)
 
 ちょっと疲れて、とりあえず文字の時計アプリのサンプルが無いか探してみた。Xcodeや古そうな実装のものが多いが、参考にしたいと思えるものを見つけた。コンバインを使う、というのでどういうことなんだろう、と思ったら、期待通りの実装。  
-<[SwiftUIで超簡単に時計アプリを作る](https://note.com/taatn0te/n/n74bd932b0704)>
+
+SwiftUIで超簡単に時計アプリを作る  
+[https://note.com/taatn0te/n/n74bd932b0704](https://note.com/taatn0te/n/n74bd932b0704)
 
 Javaのコンカレントフレームワークは知らないけど、古い実装だと、runnable インタフェースを実装して、スレッドの中で1000ミリ秒休んで文字列を書き換えて、みたいになるけど、コストがかかると考えていた。
 
