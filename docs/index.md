@@ -1,7 +1,7 @@
 # Swift日記
 
 
-[【2022/08/21】](#2022/08/21),[【2022/08/22】](#2022/08/22),[【2022/08/26】](#2022/08/26)
+[【2022/08/21】](#2022/08/21),[【2022/08/22】](#2022/08/22),[【2022/08/26】](#2022/08/26),[【2022/08/27】](#2022/08/27)
 
 
 ## <a id="#2022/08/21">【2022/08/21】</a>
@@ -100,7 +100,7 @@ Pickerを生成するのに、enumで定義した値のcaseの数だけForEach�
 
 var idだけでもStoredになる。var id {self}にすると、Computed Propertyは明示的な型の宣言が必要、と言われる。selfは、EventType型に違いないから、var id: Self {self}は全く妥当だ。
 
-それならば、と、var id {UUID()}としてみたが、これも明示的な型の宣言が必要と言われる。UUID()は、UUID型を返すので、var id: UUID {UUID()}は、Swift Playgroundsの文法チェックは通るは通る。idを参照するごとに、毎回IDを生成するから、意味があるかどうかは別の問題。実際、Pickerは表示はするが選択操作ができない。
+それならば、と、var id {UUID()}としてみたが、これも明示的な型の宣言が必要と言われる。UUID()は、UUID型を返すので、var id: UUID {UUID()}は、Swift Playgroundsの文法チェックは通るは通る。idを参照するごとに、毎回IDを生成するから、意味があるかどうかは別の問題。実際、Pickerは表示はするが選択操作ができない。  
 [https://developer.apple.com/documentation/foundation/uuid](https://developer.apple.com/documentation/foundation/uuid)
 
 ---
