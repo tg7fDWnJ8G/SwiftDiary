@@ -42,5 +42,32 @@ Publish & Sbscribeのデザインパターンを知っていると、そうだ�
 
 しかし、onReceiveやTimerのドキュメントがAppleの開発者サイトでなかなか行き着けない。Googleで検索すれば出てくるので、結果からはどのフレームワークのどのAPIコレクションにあるかはわかる。なかなかしんどい。onReceiveはViewで宣言されているようだが、TextはViewを継承しているのか、実装しているのか、Java Docのように追えないのでわからない。
 
+## 【2022/08/26】
+時計アプリの続き。
+
+ボタンを追加することにした。ボタンを押した時の動作は特に定義せず、アイコンとテキストを貼った。
+Button {} label: {}という記載だけでも、色々省略されてこの表記になっているようだが、何がどう省略されているのかも理解できない。
+[https://developer.apple.com/documentation/swiftui/button](https://developer.apple.com/documentation/swiftui/button)
+
+次に、過去にHTML5とBootstrapで作ったアプリを思い出し、3値から1つを選択するインタフェースを作ることにした。
+
+HTMLだとグループ化したラジオボタンになるので、「ラジオボタン」や「ボタングループ」というキーワードでGoogleで調べたがなかなか引っかからない。Xcodeでの実装の仕方はあっても、swiftの実装が出てこない。
+
+Swift Playgroundsのサンプルの「予定表」でViewを生成する際に、enumでフィールド名を定義して、ForEachで回す、ということをしていた。とりあえず、ボタン名のenumを定義した。しかし、Javaでもenumはあったはずだが、C系言語と合わせても使ったことがない。swiftだとこう書くのか、という感じ。
+[https://docs.swift.org/swift-book/LanguageGuide/Enumerations.html](https://docs.swift.org/swift-book/LanguageGuide/Enumerations.html)
+
+さらに、ForEachがわからない。swiftの言語ガイドの制御文にはfor inしかない。普通に考えればコレクションや配列のメソッドで、処理を記載すれば、要素の数だけ繰り返して実行されるようなイメージだ。だけどサンプルをよくよく見ると、enumは引数になっている。いくらswiftでもそういう記法はあるまい、と思って見ていたら、SwiftUIのViewの一種で、コレクション等から複数のViewを作成して保持するコレクションコンテナというものだった。まさかViewの名前がForEachだったとはね。
+[https://developer.apple.com/documentation/swiftui/foreach](https://developer.apple.com/documentation/swiftui/foreach)
+
+しかしラジオボタンの作り方が出てこない。そう言えば、通常、iOSだとどんな外観になっているか。3値からの選択であれば、ボタンが3つ並んで、そのうち1つだけが押せるようなインタフェースだ。そもそもラジオボタンというキーワードが違うのか。チェックボックスもiOSなら外観はトグルだし。
+
+SwiftUIのAPIドキュメントを見ていたら、Pickerが目に留まった。複数の選択肢から選ぶんだからPickerってはわからなくもないけれど、値のピッカーと色のピッカーと日付のピッカーでは、UI実装の規模がかなり異なる。これが並んでいる、というのは粒度の点でかなり違和感がある。
+
+とは言えこれだ。enumから作成する方法が丁寧に書かれている。文法もライブラリもよくわかっていないので、「$」付きの変数が出てきたり、CaseIterableやらIdentifiableやらキーワードが出てきたりすると、いちいち調べないとわからない。
+[https://developer.apple.com/documentation/swiftui/picker](https://developer.apple.com/documentation/swiftui/picker)
+
+Var id: Self {self}の「Self {self}」はどういう意味なんだろう。
+
+
 ---
 Copyright 2022   Takashi KOBAYASHI   All Rights Reserved.
