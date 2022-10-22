@@ -7,7 +7,7 @@
 ## <a id="#2022/08/21">【2022/08/21】</a>
 昨日から何か新しいことをやろうと思い立って、また付属のSwift Playgroundsをいじり始めた。今まで、一通りのプレイグラウンドは触って、子どもたちにもやらせたりしていたけれど、Swiftのバージョンが5.5になり、以前のプライグラウンドから変わっていた。
 
-Appギャラリーの「予定表」を色々眺めて見ることにした。@Published、ObservableObjectなど、更新時のレンダリングを自動でやってくれそうな仕組みの片鱗が見えて、よく出来ている感じ。ただ、文法がよくわからない。これでは、せっかくのPlaygroundsのサンプルを活かせない。どうしたものか。
+Appギャラリーの「予定表」を色々眺めて見ることにした。`@Published`、`ObservableObject`など、更新時のレンダリングを自動でやってくれそうな仕組みの片鱗が見えて、よく出来ている感じ。ただ、文法がよくわからない。これでは、せっかくのPlaygroundsのサンプルを活かせない。どうしたものか。
 
 ClassとStructの使い分けもよくわからない。機能の違いを一生懸命説明しているサイトはあるが、根源的にSwiftの設計者がどのように意図して2つを用意したのか。意図に沿うとどういう使い分けになるのか。とりあえず、以前から開いていたSwift.orgの言語ガイドに目を通すことにした。  
 [https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html)
@@ -51,7 +51,7 @@ Publish & Sbscribeのデザインパターンを知っていると、そうだ�
 時計アプリの続き。
 
 ボタンを追加することにした。ボタンを押した時の動作は特に定義せず、アイコンとテキストを貼った。
-Button {} label: {}という記載だけでも、色々省略されてこの表記になっているようだが、何がどう省略されているのかも理解できない。  
+`Button {} label: {}`という記載だけでも、色々省略されてこの表記になっているようだが、何がどう省略されているのかも理解できない。  
 [https://developer.apple.com/documentation/swiftui/button](https://developer.apple.com/documentation/swiftui/button)
 
 次に、過去にHTML5とBootstrapで作ったアプリを思い出し、3値から1つを選択するインタフェースを作ることにした。
@@ -71,14 +71,14 @@ SwiftUIのAPIドキュメントを見ていたら、Pickerが目に留まった�
 とは言えこれだ。enumから作成する方法が丁寧に書かれている。文法もライブラリもよくわかっていないので、「$」付きの変数が出てきたり、CaseIterableやらIdentifiableやらキーワードが出てきたりすると、いちいち調べないとわからない。  
 [https://developer.apple.com/documentation/swiftui/picker](https://developer.apple.com/documentation/swiftui/picker)
 
-Var id: Self {self}の「Self {self}」はどういう意味なんだろう。
+`Var id: Self {self}`の`Self {self}`はどういう意味なんだろう。
 
 ## <a id="2022/08/27">【2022/08/27】</a>
-var id: Self {self}について調べた。いろいろ書いてみるのもいいが、一つのことを調べ尽くすのも得るものは多い。
+`var id: Self {self}`について調べた。いろいろプログラムを書いて学ぶのもいいが、調べて理解することも重要だ。
 
-Selfは自分自身の型を指すキーワード、selfは自分自身のインスタンスを指すキーワードだった。selfは、Javaとかだとthisか。
+`Self`は自分自身の型を指すキーワード、`self`は自分自身のインスタンスを指すキーワードだった。`self`は、Javaとかだと`this`か。
 
-今回、変数idは、enumの中で宣言した。
+今回、変数`id`は、enumの中で宣言した。
 ```
 enum EventType: String, CaseIterable, Identifiable {
     case Start = "Start"
@@ -87,20 +87,20 @@ enum EventType: String, CaseIterable, Identifiable {
     var id: Self {self}
 }
 ```
-先に`{self}`は、変数宣言の後の{}は普通に使うようなので、逆に何なのか調べてもなかなか出て来ない。どうも、プロパティのgetter/setterの宣言で、Read-Only Computed Propertyだと、getなし表記ができ、さらにreturn selfのreturnが省略されている、という理解に行き着いた。{return self}でもエラーにはならない。  
+先に`{self}`は、変数宣言の後の{}は普通に使うようなので、逆に何なのか調べてもなかなか出て来ない。どうも、プロパティのgetter/setterの宣言で、Read-Only Computed Propertyだと、getなし表記ができ、さらにreturn selfのreturnが省略されている、という理解に行き着いた。`{return self}`でもエラーにはならない。  
 [https://docs.swift.org/swift-book/LanguageGuide/Properties.html](https://docs.swift.org/swift-book/LanguageGuide/Properties.html)
 
-var id: Selfの: Selfは明示的な型を示すアノテーションで自分自身の型を指すから、EventType型になる。  
+`var id: Self`の`: Self`は明示的な型を示すアノテーションで自分自身の型を指すから、EventType型になる。  
 [https://docs.swift.org/swift-book/ReferenceManual/Types.html#grammar_self-type](https://docs.swift.org/swift-book/ReferenceManual/Types.html#grammar_self-type)
 
-Pickerを生成するのに、enumで定義した値のcaseの数だけForEachを回す実装では、enumはイテレーションするためのCaseIterableと識別するためのIdentifiableのプロトコルに適合しないといけない。Identifiableに適合するためには、idプロパティが必要になる。  
+Pickerを生成するのに、enumで定義した値のcaseの数だけForEachを回す実装では、enumはイテレーションするための`CaseIterable`と識別するための`Identifiable`のプロトコルに適合しないといけない。`Identifiable`に適合するためには、`id`プロパティが必要になる。  
 [https://developer.apple.com/documentation/swift/identifiable](https://developer.apple.com/documentation/swift/identifiable)
 
-「予定表」で、var id = UUID()という記述があったので、そのままペーストしたら、enumはStored Property (値を保持するプロパティ)は含められない、とメッセージが出た。Computed Propertyじゃないといけないらしいが、enumの意味を考えるとその通りだ。
+「予定表」で、`var id = UUID()`という記述があったので、そのままペーストしたら、enumはStored Property (値を保持するプロパティ)は含められない、とメッセージが出た。Computed Propertyじゃないといけないらしいが、enumの意味を考えるとその通りだ。
 
-var idだけでもStoredになる。var id {self}にすると、Computed Propertyは明示的な型の宣言が必要、と言われる。selfは、EventType型に違いないから、var id: Self {self}は全く妥当だ。
+`var id`だけでもStoredになる。`var id {self}`にすると、Computed Propertyは明示的な型の宣言が必要、と言われる。`self`は、EventType型に違いないから、`var id: Self {self}`は全く妥当だ。
 
-それならば、と、var id {UUID()}としてみたが、これも明示的な型の宣言が必要と言われる。UUID()は、UUID型を返すので、var id: UUID {UUID()}は、Swift Playgroundsの文法チェックは通るは通る。idを参照するごとに、毎回IDを生成するから、意味があるかどうかは別の問題。実際、Pickerは表示はするが選択操作ができない。  
+それならば、と、`var id {UUID()}`としてみたが、これも明示的な型の宣言が必要と言われる。`UUID()`は、UUID型を返すので、`var id: UUID {UUID()}`は、Swift Playgroundsの文法チェックは通るは通る。idを参照するごとに、毎回IDを生成するから、意味があるかどうかは別の問題。実際、Pickerは表示はするが選択操作ができない。  
 [https://developer.apple.com/documentation/foundation/uuid](https://developer.apple.com/documentation/foundation/uuid)
 
 ## <a id="2022/09/15">【2022/09/15】</a>
@@ -123,7 +123,7 @@ Core Dataは、Xcodeでの使用が前提で、Xcodeだとスキーマエディ�
 
 ただ、これを毎回、手で書くのはやりたくないので、それこそエクセルとかを使って、セル関数でSwiftのコードを生成して、Swift Playgroundsのコードエディタに貼り付けるのがいいか。
 
-Core Dataの定義を単純化するために、JavaScriptのWindow.localStorageに倣うと、一意のインデックスと1つ文字列の2フィールド構成にして、文字列フィールドにJSONで格納することが考えられる。JSONからデコードしてオブジェクトを取り出す処理の責任は負わないといけないけれど、定義は使い回しができるかもしれない。
+Core Dataの定義を単純化するために、JavaScriptの`Window.localStorage`に倣うと、一意のインデックスと1つ文字列の2フィールド構成にして、文字列フィールドにJSONで格納することが考えられる。JSONからデコードしてオブジェクトを取り出す処理の責任は負わないといけないけれど、定義は使い回しができるかもしれない。
 
 SwiftでJSONを使う方法が無いか探したら、Foundationにあった。JavaのSerializableインタフェースでシリアライズ処理を自分で実装したことはないけど、今やJSONが主流か。  
 [https://developer.apple.com/documentation/foundation/archives_and_serialization](https://developer.apple.com/documentation/foundation/archives_and_serialization)
