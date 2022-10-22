@@ -1,7 +1,7 @@
 # Swift日記
 
 
-[【2022/08/21】](#2022/08/21),[【2022/08/22】](#2022/08/22),[【2022/08/26】](#2022/08/26),[【2022/08/27】](#2022/08/27)
+[【2022/08/21】](#2022/08/21),[【2022/08/22】](#2022/08/22),[【2022/08/26】](#2022/08/26),[【2022/08/27】](#2022/08/27),[【2022/09/15】](#2022/09/15)
 
 
 ## <a id="#2022/08/21">【2022/08/21】</a>
@@ -102,6 +102,15 @@ var idだけでもStoredになる。var id {self}にすると、Computed Propert
 
 それならば、と、var id {UUID()}としてみたが、これも明示的な型の宣言が必要と言われる。UUID()は、UUID型を返すので、var id: UUID {UUID()}は、Swift Playgroundsの文法チェックは通るは通る。idを参照するごとに、毎回IDを生成するから、意味があるかどうかは別の問題。実際、Pickerは表示はするが選択操作ができない。  
 [https://developer.apple.com/documentation/foundation/uuid](https://developer.apple.com/documentation/foundation/uuid)
+
+<a id="2022/09/15">【2022/09/15】</a>
+過去に作成したJavaScriptで記載したHTML5アプリを見ていて、ため息が出てきた。いろいろ考えたものだ。とてもではないが、今作成したら思いつかない実装をしている。その一つがブラウザでのデータの保存のしかたで、windows.localStorageを使用している。key-value方式で、key値にDateから生成した日付と日時の文字列を使っている。valueの側にDateを入れていないというのが想定外だった。
+
+Swiftではどうするかを調べると、流儀があるらしい。AppStoreに出す審査において、ルールに則っていることが求められる。ルールに沿えば、iCloudに保存してくれる、とか自動的に新しいテクノロジを使ってくれるかもしれない。  
+[https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/)
+
+Swift Playgroundsでどう使うかを見ていくと、配列などで保持するアプリのデータを永続化するには、Core Data、Realm、SQLiteあたりが使えるらしい。ただ、Swift PlaygroudsだとRealm、SQLiteはObjective-Cで書かれており使用できず、Core Dataになる。JavaScriptのlocalStorageほど使い易くなさそう。  
+[https://developer.apple.com/documentation/coredata](https://developer.apple.com/documentation/coredata)
 
 ---
 Copyright 2022   Takashi KOBAYASHI   All Rights Reserved.
