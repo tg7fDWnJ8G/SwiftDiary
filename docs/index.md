@@ -73,6 +73,35 @@ SwiftUIのAPIドキュメントを見ていたら、Pickerが目に留まった�
 
 Var id: Self {self}の「Self {self}」はどういう意味なんだろう。
 
+## <a id="2022/08/27">【2022/08/27】</a>
+var id: Self {self}について調べた。いろいろ書いてみるのもいいが、一つのことを調べ尽くすのも得るものは多い。
+
+Selfは自分自身の型を指すキーワード、selfは自分自身のインスタンスを指すキーワードだった。selfは、Javaとかだとthisか。
+
+今回、変数idは、enumの中で宣言した。
+```
+enum EventType: String, CaseIterable, Identifiable {
+    case Start = "Start"
+    case End = "End"
+    case None = "None"
+    var id: Self {self}
+}
+```
+先に`{self}`は、変数宣言の後の{}は普通に使うようなので、逆に何なのか調べてもなかなか出て来ない。どうも、プロパティのgetter/setterの宣言で、Read-Only Computed Propertyだと、getなし表記ができ、さらにreturn selfのreturnが省略されている、という理解に行き着いた。{return self}でもエラーにはならない。  
+[https://docs.swift.org/swift-book/LanguageGuide/Properties.html](https://docs.swift.org/swift-book/LanguageGuide/Properties.html)
+
+var id: Selfの: Selfは明示的な型を示すアノテーションで自分自身の型を指すから、EventType型になる。  
+[https://docs.swift.org/swift-book/ReferenceManual/Types.html#grammar_self-type](https://docs.swift.org/swift-book/ReferenceManual/Types.html#grammar_self-type)
+
+Pickerを生成するのに、enumで定義した値のcaseの数だけForEachを回す実装では、enumはイテレーションするためのCaseIterableと識別するためのIdentifiableのプロトコルに適合しないといけない。Identifiableに適合するためには、idプロパティが必要になる。  
+[https://developer.apple.com/documentation/swift/identifiable](https://developer.apple.com/documentation/swift/identifiable)
+
+「予定表」で、var id = UUID()という記述があったので、そのままペーストしたら、enumはStored Property (値を保持するプロパティ)は含められない、とメッセージが出た。Computed Propertyじゃないといけないらしいが、enumの意味を考えるとその通りだ。
+
+var idだけでもStoredになる。var id {self}にすると、Computed Propertyは明示的な型の宣言が必要、と言われる。selfは、EventType型に違いないから、var id: Self {self}は全く妥当だ。
+
+それならば、と、var id {UUID()}としてみたが、これも明示的な型の宣言が必要と言われる。UUID()は、UUID型を返すので、var id: UUID {UUID()}は、Swift Playgroundsの文法チェックは通るは通る。idを参照するごとに、毎回IDを生成するから、意味があるかどうかは別の問題。実際、Pickerは表示はするが選択操作ができない。
+[https://developer.apple.com/documentation/foundation/uuid](https://developer.apple.com/documentation/foundation/uuid)
 
 ---
 Copyright 2022   Takashi KOBAYASHI   All Rights Reserved.
