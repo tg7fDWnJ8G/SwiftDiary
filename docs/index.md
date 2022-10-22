@@ -103,7 +103,7 @@ var idだけでもStoredになる。var id {self}にすると、Computed Propert
 それならば、と、var id {UUID()}としてみたが、これも明示的な型の宣言が必要と言われる。UUID()は、UUID型を返すので、var id: UUID {UUID()}は、Swift Playgroundsの文法チェックは通るは通る。idを参照するごとに、毎回IDを生成するから、意味があるかどうかは別の問題。実際、Pickerは表示はするが選択操作ができない。  
 [https://developer.apple.com/documentation/foundation/uuid](https://developer.apple.com/documentation/foundation/uuid)
 
-<a id="2022/09/15">【2022/09/15】</a>
+## <a id="2022/09/15">【2022/09/15】</a>
 過去に作成したJavaScriptで記載したHTML5アプリを見ていて、ため息が出てきた。いろいろ考えたものだ。とてもではないが、今作成したら思いつかない実装をしている。その一つがブラウザでのデータの保存のしかたで、windows.localStorageを使用している。key-value方式で、key値にDateから生成した日付と日時の文字列を使っている。valueの側にDateを入れていないというのが想定外だった。
 
 Swiftではどうするかを調べると、流儀があるらしい。AppStoreに出す審査において、ルールに則っていることが求められる。ルールに沿えば、iCloudに保存してくれる、とか自動的に新しいテクノロジを使ってくれるかもしれない。  
@@ -111,6 +111,24 @@ Swiftではどうするかを調べると、流儀があるらしい。AppStore�
 
 Swift Playgroundsでどう使うかを見ていくと、配列などで保持するアプリのデータを永続化するには、Core Data、Realm、SQLiteあたりが使えるらしい。ただ、Swift PlaygroudsだとRealm、SQLiteはObjective-Cで書かれており使用できず、Core Dataになる。JavaScriptのlocalStorageほど使い易くなさそう。  
 [https://developer.apple.com/documentation/coredata](https://developer.apple.com/documentation/coredata)
+
+## <a id="2022/09/16">【2022/09/16】</a>
+Core Dataは、Xcodeでの使用が前提で、Xcodeだとスキーマエディタが付属している。これを使用せずに、内部的にXcodeが生成している？処理をSwiftでは手動で記載しないといけない、ということだ。とはいえ、手動でも書けば使えるのはありがたい。  
+
+<【iOS】デバイス(ローカル)にデータを保存する方法>  
+[https://qiita.com/shiz/items/c7a9b3218269c5c92fed](https://qiita.com/shiz/items/c7a9b3218269c5c92fed)
+
+<【Swift】コードのみでCoreDataを実装>  
+[https://qiita.com/SNQ-2001/items/61cef2153aad5c4d542f](https://qiita.com/SNQ-2001/items/61cef2153aad5c4d542f)
+
+ただ、これを毎回、手で書くのはやりたくないので、それこそエクセルとかを使って、セル関数でSwiftのコードを生成して、Swift Playgroundsのコードエディタに貼り付けるのがいいか。
+
+Core Dataの定義を単純化するために、JavaScriptのWindow.localStorageに倣うと、一意のインデックスと1つ文字列の2フィールド構成にして、文字列フィールドにJSONで格納することが考えられる。JSONからデコードしてオブジェクトを取り出す処理の責任は負わないといけないけれど、定義は使い回しができるかもしれない。
+
+SwiftでJSONを使う方法が無いか探したら、Foundationにあった。JavaのSerializableインタフェースでシリアライズ処理を自分で実装したことはないけど、今やJSONが主流か。  
+[https://developer.apple.com/documentation/foundation/archives_and_serialization](https://developer.apple.com/documentation/foundation/archives_and_serialization)
+
+
 
 ---
 Copyright 2022   Takashi KOBAYASHI   All Rights Reserved.
